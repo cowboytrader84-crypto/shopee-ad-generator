@@ -99,10 +99,10 @@ def generate_ad():
             
             # Tentar carregar fonte personalizada (fallback para fonte padrão)
             try:
-                title_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", int(48 * width / 1080))
-                desc_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", int(32 * width / 1080))
-                price_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", int(56 * width / 1080))
-                small_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", int(24 * width / 1080))
+                title_font = ImageFont.truetype("static/fonts/DejaVuSans-Bold.ttf", int(48 * width / 1080))
+                desc_font = ImageFont.truetype("static/fonts/DejaVuSans.ttf", int(32 * width / 1080))
+                price_font = ImageFont.truetype("static/fonts/DejaVuSans-Bold.ttf", int(56 * width / 1080))
+                small_font = ImageFont.truetype("static/fonts/DejaVuSans.ttf", int(24 * width / 1080))
             except:
                 title_font = ImageFont.load_default()
                 desc_font = ImageFont.load_default()
@@ -263,4 +263,3 @@ def generate_ad():
         })
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
