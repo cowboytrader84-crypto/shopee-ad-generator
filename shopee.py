@@ -100,24 +100,29 @@ def generate_ad():
             # Tentar carregar fonte personalizada (fallback para fonte padrão)
 # Substitua todo o bloco de fontes por:
 try:
-    # Caminho correto para as fontes
+    # Caminho correto para as fontes - CORRIGIDO!
     font_path_bold = os.path.join(BASE_DIR, "static", "static", "fonts", "DejaVuSans-Bold.ttf")
     font_path_regular = os.path.join(BASE_DIR, "static", "static", "fonts", "DejaVuSans.ttf")
     
-    title_font = ImageFont.truetype(font_path_bold, int(48 * width / 1080))
-    desc_font = ImageFont.truetype(font_path_regular, int(32 * width / 1080))
-    price_font = ImageFont.truetype(font_path_bold, int(56 * width / 1080))
-    small_font = ImageFont.truetype(font_path_regular, int(24 * width / 1080))
-    
+    # Verifica se os arquivos existem
+    if os.path.exists(font_path_bold) and os.path.exists(font_path_regular):
+        title_font = ImageFont.truetype(font_path_bold, int(48 * width / 1080))
+        desc_font = ImageFont.truetype(font_path_regular, int(32 * width / 1080))
+        price_font = ImageFont.truetype(font_path_bold, int(56 * width / 1080))
+        small_font = ImageFont.truetype(font_path_regular, int(24 * width / 1080))
+    else:
+        raise FileNotFoundError("Fontes não encontradas no caminho especificado")
+        
 except Exception as e:
     print(f"Erro ao carregar fontes: {e}")
-    # Fallback para fontes padrão se as personalizadas falharem
+    # Fallback para fontes padrão
     try:
         title_font = ImageFont.truetype("arialbd.ttf", int(48 * width / 1080))
         desc_font = ImageFont.truetype("arial.ttf", int(32 * width / 1080))
         price_font = ImageFont.truetype("arialbd.ttf", int(56 * width / 1080))
         small_font = ImageFont.truetype("arial.ttf", int(24 * width / 1080))
     except:
+        # Último fallback
         title_font = ImageFont.load_default()
         desc_font = ImageFont.load_default()
         price_font = ImageFont.load_default()
