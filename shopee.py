@@ -98,16 +98,30 @@ def generate_ad():
             draw = ImageDraw.Draw(img)
             
             # Tentar carregar fonte personalizada (fallback para fonte padrão)
-            try:
-                title_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", int(48 * width / 1080))
-                desc_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", int(32 * width / 1080))
-                price_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", int(56 * width / 1080))
-                small_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", int(24 * width / 1080))
-            except:
-                title_font = ImageFont.load_default()
-                desc_font = ImageFont.load_default()
-                price_font = ImageFont.load_default()
-                small_font = ImageFont.load_default()
+# Substitua todo o bloco de fontes por:
+try:
+    # Caminho correto para as fontes
+    font_path_bold = os.path.join(BASE_DIR, "static", "static", "fonts", "DejaVuSans-Bold.ttf")
+    font_path_regular = os.path.join(BASE_DIR, "static", "static", "fonts", "DejaVuSans.ttf")
+    
+    title_font = ImageFont.truetype(font_path_bold, int(48 * width / 1080))
+    desc_font = ImageFont.truetype(font_path_regular, int(32 * width / 1080))
+    price_font = ImageFont.truetype(font_path_bold, int(56 * width / 1080))
+    small_font = ImageFont.truetype(font_path_regular, int(24 * width / 1080))
+    
+except Exception as e:
+    print(f"Erro ao carregar fontes: {e}")
+    # Fallback para fontes padrão se as personalizadas falharem
+    try:
+        title_font = ImageFont.truetype("arialbd.ttf", int(48 * width / 1080))
+        desc_font = ImageFont.truetype("arial.ttf", int(32 * width / 1080))
+        price_font = ImageFont.truetype("arialbd.ttf", int(56 * width / 1080))
+        small_font = ImageFont.truetype("arial.ttf", int(24 * width / 1080))
+    except:
+        title_font = ImageFont.load_default()
+        desc_font = ImageFont.load_default()
+        price_font = ImageFont.load_default()
+        small_font = ImageFont.load_default()
             
             # Cabeçalho com linha dourada
             header_height = int(100 * height / 1080)
