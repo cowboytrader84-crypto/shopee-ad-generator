@@ -495,7 +495,7 @@
                 this.disabled = true; // Desabilita o botão enquanto processa
 
                 try {
-                    const response = await fetch("/api/shopee/upload-csv", {
+                    const response = await fetch("api/shopee/upload-csv", {
                         method: "POST",
                         body: formData
                     });
